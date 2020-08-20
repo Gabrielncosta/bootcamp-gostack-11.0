@@ -8,8 +8,8 @@ export default class CreateAppointments1597713287080
         name: 'appointments',
         columns: [
           {
-            name: 'uuid',
-            type: 'varchar',
+            name: 'id',
+            type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
