@@ -10,8 +10,8 @@ interface IRequest {
 }
 
 class CreateAppointmentService {
-  private appointmentsRepository: IAppointmentsRepository
-  
+  private appointmentsRepository: IAppointmentsRepository;
+
   constructor(appointmentsRepository: IAppointmentsRepository) {
     this.appointmentsRepository = appointmentsRepository;
   }
