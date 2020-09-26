@@ -5,8 +5,7 @@ import uploadConfig from '@config/upload';
 import User from '@modules/users/infra/typeorm/entities/User';
 
 import AppError from '@shared/errors/AppError';
-import IUsersRepository from '../repositories/IUsersRepository'
-
+import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
   user_id: string;
@@ -14,12 +13,12 @@ interface IRequest {
 }
 
 class UpdateUserAvatarService {
-  private usersRepository: IUsersRepository
-  
+  private usersRepository: IUsersRepository;
+
   constructor(usersRepository: IUsersRepository) {
     this.usersRepository = usersRepository;
   }
-  
+
   public async execute({ user_id, avatarFilename }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
