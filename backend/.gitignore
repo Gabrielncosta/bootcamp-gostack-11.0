@@ -2,6 +2,7 @@ node_modules
 dist
 build/
 tmp/*
+!tmp/.gitkeep
 temp/
 .vscode/
 coverage/
