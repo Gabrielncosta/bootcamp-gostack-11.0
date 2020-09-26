@@ -1,9 +1,11 @@
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import User from '@modules/users/infra/typeorm/entities/User';
+
 import authConfig from '@config/auth';
+import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
+import User from '@modules/users/infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
@@ -16,12 +18,11 @@ interface IResponse {
   token: string;
 }
 
+@injectable()
 class AuthenticateUserService {
-  private usersRepository: IUsersRepository;
-
-  constructor(usersRepository: IUsersRepository) {
-    this.usersRepository = usersRepository;
-  }
+  constructor(
+    @inject('usersRepository') private usersRepository: IUsersRepository,
+  ) {}
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
