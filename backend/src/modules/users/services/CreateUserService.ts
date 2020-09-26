@@ -3,7 +3,7 @@ import { hash } from 'bcryptjs';
 import User from '@modules/users/infra/typeorm/entities/User';
 
 import AppError from '@shared/errors/AppError';
-import IUsersRepository from '../repositories/IUsersRepository'
+import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
   name: string;
@@ -12,14 +12,13 @@ interface IRequest {
 }
 
 class CreateUserService {
-  private usersRepository: IUsersRepository
-  
+  private usersRepository: IUsersRepository;
+
   constructor(usersRepository: IUsersRepository) {
     this.usersRepository = usersRepository;
   }
-  
-  public async execute({ name, email, password }: IRequest): Promise<User> {
 
+  public async execute({ name, email, password }: IRequest): Promise<User> {
     const checkUserExists = await this.usersRepository.findByEmail(email);
 
     if (checkUserExists) {

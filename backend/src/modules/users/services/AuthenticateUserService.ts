@@ -4,7 +4,7 @@ import User from '@modules/users/infra/typeorm/entities/User';
 import authConfig from '@config/auth';
 
 import AppError from '@shared/errors/AppError';
-import IUsersRepository from '../repositories/IUsersRepository'
+import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
   email: string;
@@ -16,12 +16,13 @@ interface IResponse {
   token: string;
 }
 
-class AuthenticateUserService {  
-  private usersRepository: IUsersRepository
-  
+class AuthenticateUserService {
+  private usersRepository: IUsersRepository;
+
   constructor(usersRepository: IUsersRepository) {
     this.usersRepository = usersRepository;
   }
+
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
 
