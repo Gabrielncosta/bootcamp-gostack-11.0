@@ -1,9 +1,10 @@
 import { inject, injectable } from 'tsyringe';
 // import User from '@modules/users/infra/typeorm/entities/User';
 
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
+
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
@@ -21,6 +22,12 @@ class SendForgotPasswordEmailService {
   ) {}
 
   public async execute({ email }: IRequest): Promise<void> {
+    const checkUserExists = await this.usersRepository.findByEmail(email);
+
+    if (!checkUserExists) {
+      throw new AppError('User does not exists');
+    }
+
     this.mailProvider.sendMail(email, 'message');
   }
 }
